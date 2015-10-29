@@ -59,7 +59,7 @@ For some reason, I can't get the startup script to work.
 It gets installed, so you can ignore the error when it is provisioned.
 It can be started from inside the box with:
 
-`sh /opt/wso2bam-2.4.1/bin/wso2server.sh > /dev/null &`
+`sh /opt/wso2bam-2.5.0/bin/wso2server.sh > /dev/null &`
 
 ###Installing applications with the features manager
 

@@ -1,6 +1,6 @@
 class greg{
   file { '/tmp/wso2greg-4.6.0.zip':
-    source => '/home/vagrant/wso2greg-4.6.0.zip',
+    source => '/home/vagrant/provision/wso2greg-4.6.0.zip',
   }
 
   file { '/opt/wso2greg-4.6.0':
@@ -35,4 +35,6 @@ class greg{
     require => Exec['Extract WSO2 Governance Registry'],
     notify  => Service['wso2greg'],
   }
+  
+
 }

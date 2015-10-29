@@ -22,46 +22,73 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define "wso2esb" do |wso2esb|
     #ESB
-    wso2esb.vm.network "forwarded_port", guest: 9443, host: 9443
-    wso2esb.vm.network "forwarded_port", guest: 9763, host: 9763
-    wso2esb.vm.network "forwarded_port", guest: 8280, host: 8280
-    wso2esb.vm.network "forwarded_port", guest: 8243, host: 8243
+    wso2esb.vm.network "forwarded_port", guest: 9443, host: 19443
+    wso2esb.vm.network "forwarded_port", guest: 9763, host: 19763
+    wso2esb.vm.network "forwarded_port", guest: 8280, host: 18280
+    wso2esb.vm.network "forwarded_port", guest: 8243, host: 18243
     #AM
-    wso2esb.vm.network "forwarded_port", guest: 9445, host: 9445
-    wso2esb.vm.network "forwarded_port", guest: 9765, host: 9765
-    wso2esb.vm.network "forwarded_port", guest: 8282, host: 8282
-    wso2esb.vm.network "forwarded_port", guest: 8245, host: 8245
+    wso2esb.vm.network "forwarded_port", guest: 9445, host: 19445
+    wso2esb.vm.network "forwarded_port", guest: 9765, host: 19765
+    wso2esb.vm.network "forwarded_port", guest: 8282, host: 18282
+    wso2esb.vm.network "forwarded_port", guest: 8245, host: 18245
     #BAM
-    wso2esb.vm.network "forwarded_port", guest: 9444, host: 9444
-    wso2esb.vm.network "forwarded_port", guest: 9764, host: 9764
-    wso2esb.vm.network "forwarded_port", guest: 7614, host: 7614
+    wso2esb.vm.network "forwarded_port", guest: 9444, host: 19444
+    wso2esb.vm.network "forwarded_port", guest: 9764, host: 19764
+    wso2esb.vm.network "forwarded_port", guest: 7614, host: 17614
     #GREG
-    wso2esb.vm.network "forwarded_port", guest: 9446, host: 9446
+    wso2esb.vm.network "forwarded_port", guest: 9446, host: 19446
 
+    
     wso2esb.vm.network :private_network, ip: "192.168.11.11"
     wso2esb.vm.hostname = "wso2esb.local"
-
+    wso2esb.vm.synced_folder "provision", "/home/vagrant/provision"
     wso2esb.vm.provider "virtualbox" do |vb|
       vb.name = 'wso2esb-box'
       vb.customize ["modifyvm", :id, "--memory", "4096"]
-      vb.customize ["modifyvm", :id, "--cpus", "2"]
+      vb.customize ["modifyvm", :id, "--cpus", "1"]
       vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
       vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
       vb.customize ["modifyvm", :id, "--ostype", "Ubuntu_64"]
       vb.customize ["modifyvm", :id, "--acpi", "on"]
       vb.customize ["modifyvm", :id, "--ioapic", "on"]
 
-      # wso2esb.vm.synced_folder "./repository/esb/deployment/server", "/opt/wso2esb-4.8.1/repository/deployment/server", user:"vagrant", group:"vagrant"
-      # wso2esb.vm.synced_folder "./repository/esb/conf", "/opt/wso2esb-4.8.1/repository/conf", user:"vagrant", group:"vagrant"
-
       wso2esb.vm.provision :shell, :path => "provision/esb/shell/install_init.sh"
-      wso2esb.vm.provision :shell, :path => "provision/esb/shell/download.sh"
-      #wso2esb.vm.provision :shell, :path => "provision/shell/build.sh"
-
+   
       wso2esb.vm.provision "puppet" do |puppet|
         puppet.manifests_path = "provision/esb/puppet/manifests"
         puppet.manifest_file  = "site.pp"
         puppet.module_path = "provision/esb/puppet/modules"
+      end
+    end
+
+  end
+  
+  config.vm.define "wso2is" do |wso2is|
+   	#IS
+   	wso2is.vm.network "forwarded_port", guest: 9443, host: 29443
+    #DSS
+    wso2is.vm.network "forwarded_port", guest: 9447, host: 29447
+    
+    wso2is.vm.network :private_network, ip: "192.168.11.12"
+    wso2is.vm.hostname = "wso2is.local"
+    wso2is.vm.synced_folder "provision", "/home/vagrant/provision"
+    wso2is.vm.provider "virtualbox" do |vb|
+      vb.name = 'wso2is-box'
+      vb.customize ["modifyvm", :id, "--memory", "4096"]
+      vb.customize ["modifyvm", :id, "--cpus", "1"]
+      vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+      vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      vb.customize ["modifyvm", :id, "--ostype", "Ubuntu_64"]
+      vb.customize ["modifyvm", :id, "--acpi", "on"]
+      vb.customize ["modifyvm", :id, "--ioapic", "on"]
+
+      wso2is.vm.provision :shell, :path => "provision/is/shell/install_init.sh"
+     
+
+      wso2is.vm.provision "puppet" do |puppet|
+        puppet.manifests_path = "provision/is/puppet/manifests"
+        puppet.manifest_file  = "site.pp"
+        puppet.module_path = "provision/is/puppet/modules"
       end
     end
 

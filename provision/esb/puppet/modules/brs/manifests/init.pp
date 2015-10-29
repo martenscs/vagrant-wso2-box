@@ -1,6 +1,6 @@
 class brs{
   file { '/tmp/wso2brs-2.1.0.zip':
-    source => '/home/vagrant/wso2brs-2.1.0.zip',
+    source => '/home/vagrant/provision/wso2brs-2.1.0.zip',
   }
 
   file { '/opt/wso2brs-2.1.0':
@@ -29,4 +29,7 @@ class brs{
     ensure => true,
     enable => true,
   }
+  
+
+  
 }

@@ -1,9 +1,9 @@
 class am{
-  file { '/tmp/wso2am-1.8.0.zip':
-    source => '/home/vagrant/wso2am-1.8.0.zip',
+  file { '/tmp/wso2am-1.9.1.zip':
+    source => '/home/vagrant/provision/wso2am-1.9.1.zip',
   }
 
-  file { '/opt/wso2am-1.8.0':
+  file { '/opt/wso2am-1.9.1':
     ensure => directory,
     owner  => 'vagrant',
     group  => 'vagrant',
@@ -11,12 +11,12 @@ class am{
   }
 
   exec { 'Extract WSO2 API Manager':
-    command => '/usr/bin/unzip /tmp/wso2am-1.8.0.zip',
+    command => '/usr/bin/unzip /tmp/wso2am-1.9.1.zip',
     cwd     => '/opt',
-    creates => '/opt/wso2am-1.8.0/bin/wso2server.sh',
+    creates => '/opt/wso2am-1.9.1/bin/wso2server.sh',
     user    => 'vagrant',
     group   => 'vagrant',
-    require => File['/tmp/wso2am-1.8.0.zip', '/opt/wso2am-1.8.0'],
+    require => File['/tmp/wso2am-1.9.1.zip', '/opt/wso2am-1.9.1'],
     timeout => 0,
   }->
   file { '/etc/init.d/wso2am':
@@ -30,19 +30,19 @@ class am{
     enable => true,
   }
 
-  file { '/opt/wso2am-1.8.0/repository/conf/api-manager.xml':
+  file { '/opt/wso2am-1.9.1/repository/conf/api-manager.xml':
     source  => '/vagrant/provision/esb/puppet/modules/am/files/api-manager.xml',
     require => Exec['Extract WSO2 API Manager'],
     notify  => Service['wso2am'],
   }
 
-  file { '/opt/wso2am-1.8.0/repository/conf/carbon.xml':
+  file { '/opt/wso2am-1.9.1/repository/conf/carbon.xml':
     source  => '/vagrant/provision/esb/puppet/modules/am/files/carbon.xml',
     require => Exec['Extract WSO2 API Manager'],
     notify  => Service['wso2am'],
   }
 
-  file { '/opt/wso2am-1.8.0/repository/conf/datasources/master-datasources.xml':
+  file { '/opt/wso2am-1.9.1/repository/conf/datasources/master-datasources.xml':
     source  => '/vagrant/provision/esb/puppet/modules/am/files/master-datasources.xml',
     require => Exec['Extract WSO2 API Manager'],
     notify  => Service['wso2am'],

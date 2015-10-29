@@ -57,7 +57,7 @@
             </jndiConfig>
             <definition type="RDBMS">
                 <configuration>
-                    <url>jdbc:h2:/opt/wso2bam-2.4.1/repository/database/APIMGTSTATS_DB;AUTO_SERVER=TRUE</url>
+                    <url>jdbc:h2:/opt/wso2bam-2.5.0/repository/database/APIMGTSTATS_DB;AUTO_SERVER=TRUE</url>
                     <username>wso2carbon</username>
                     <password>wso2carbon</password>
                     <driverClassName>org.h2.Driver</driverClassName>
