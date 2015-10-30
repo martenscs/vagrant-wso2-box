@@ -19,7 +19,7 @@ if [ -f $FILE ];
 then
    echo "ESB already downloaded"
 else
-   wget --user-agent="testuser" --referer="http://connect.wso2.com/wso2/getform/reg/new_product_download" http://dist.wso2.org/products/enterprise-service-bus/4.8.1/wso2esb-4.9.0.zip
+   wget --user-agent="testuser" --referer="http://connect.wso2.com/wso2/getform/reg/new_product_download" http://product-dist.wso2.org/products/enterprise-service-bus/4.9.0/wso2esb-4.9.0.zip
 fi
 
 # AM

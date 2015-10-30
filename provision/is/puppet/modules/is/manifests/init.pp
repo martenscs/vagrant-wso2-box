@@ -23,7 +23,7 @@ class is{
     owner  => root,
     group  => root,
     mode   => 755,
-    source => '/vagrant/provision/esb/puppet/modules/is/files/wso2is',
+    source => '/vagrant/provision/is/puppet/modules/is/files/wso2is',
   }->
   file { '/opt/wso2is-5.0.0/repository/components/lib/postgresql-9.4-1201.jdbc41.jar':
     owner  => root,

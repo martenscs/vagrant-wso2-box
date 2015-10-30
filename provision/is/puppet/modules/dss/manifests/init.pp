@@ -23,7 +23,7 @@ class dss{
     owner  => root,
     group  => root,
     mode   => 755,
-    source => '/vagrant/provision/esb/puppet/modules/as/files/wso2dss',
+    source => '/vagrant/provision/is/puppet/modules/dss/files/wso2dss',
   }->
   service { 'wso2dss':
     ensure => true,
@@ -31,7 +31,7 @@ class dss{
   }
 
   file { '/opt/wso2dss-3.5.0/repository/conf/carbon.xml':
-    source  => '/vagrant/provision/is/puppet/modules/as/files/carbon.xml',
+    source  => '/vagrant/provision/is/puppet/modules/dss/files/carbon.xml',
     require => Exec['Extract WSO2 Datasource Server'],
     notify  => Service['wso2dss'],
   }
