@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd /home/vagrant
+cd /home/vagrant/provision
 
 # Postgres Driver
 FILE=postgresql-9.4-1201.jdbc41.jar
