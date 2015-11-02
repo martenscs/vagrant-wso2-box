@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 # install jdk 7#!/bin/bash
+PASSWORD='12345678'
+
 apt-get update
 apt-get -y upgrade
 apt-get autoremove
@@ -15,11 +17,6 @@ apt-get -y install oracle-java7-installer
 echo -e "\n\nJAVA_HOME=/usr/lib/jvm/java-7-oracle" >> /etc/environment;
 export JAVA_HOME=/usr/lib/jvm/java-7-oracle/
 
-# install maven
-apt-get -q -y install maven
+apt-get install -y mysql-client
 
-# install activemq
-apt-get -q -y install activemq
 
-# install svn
-apt-get -y install subversion

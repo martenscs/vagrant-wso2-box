@@ -16,6 +16,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # doesn't already exist on the user's system.
   config.vm.box_url = "http://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-i386-vagrant-disk1.box"
 
+
+    config.vm.define "mysql" do |mysql|
+      mysql.vm.provider :virtualbox do |n|
+          n.name = "mysql.test.wso2.com"
+          n.memory = 512
+      end
+      mysql.vm.hostname = "mysql.test.wso2.com"
+      mysql.vm.network :private_network, ip: "192.168.11.10"
+      mysql.vm.provision :shell, :inline => $mysql_script
+    end    
+
+
   #
   # WSO2 ESB
   #
